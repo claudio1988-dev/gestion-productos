@@ -1,0 +1,94 @@
+# ----------------------------------------------------------------------
+# Perfil por defecto (dev). Cambia spring.profiles.active según el entorno
+# ----------------------------------------------------------------------
+spring:
+  application:
+    name: gestion-productos
+  profiles:
+    active: dev        
+# ----------------------------------------------------------------------
+# Configuración DEV
+# ----------------------------------------------------------------------
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gestion_productos
+    username: claudio
+    password: claudio
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true        
+  security:
+    user:
+      name: admin
+      password: admin
+  server:
+    port: 8080           
+
+# ----------------------------------------------------------------------
+# Configuración TEST
+# ----------------------------------------------------------------------
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    url: jdbc:h2:mem:gestion_productos_test;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+  security:
+    user:
+      name: admin
+      password: admin
+  server:
+    port: 8081          
+
+# ----------------------------------------------------------------------
+# Configuración PROD
+# ----------------------------------------------------------------------
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gestion_productos
+    username: claudio
+    password: claudio
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none      
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false      
+  security:
+    user:
+      name: admin
+      password: admin
+  server:
+    port: 8082           
+	management:
+	  endpoints:
+	    web:
+	      exposure:
+	        include: health,info,metrics,prometheus
+	  metrics:
+	    export:
+	      prometheus:
+	        enabled: true

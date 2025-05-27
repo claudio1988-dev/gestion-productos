@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: gestion_productos
+      POSTGRES_USER: claudio
+      POSTGRES_PASSWORD: claudio
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # Si quieres etiquetar la imagen, descomenta la siguiente línea:
+    # image: gestion-productos-app:latest
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/gestion_productos
+      SPRING_DATASOURCE_USERNAME: claudio
+      SPRING_DATASOURCE_PASSWORD: claudio
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    ports:
+      - "8080:8080"
+
+volumes:
+  db-data:
