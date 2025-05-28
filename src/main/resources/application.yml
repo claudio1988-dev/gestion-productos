@@ -6,6 +6,7 @@ spring:
     name: gestion-productos
   profiles:
     active: dev        
+
 # ----------------------------------------------------------------------
 # Configuración DEV
 # ----------------------------------------------------------------------
@@ -82,13 +83,13 @@ spring:
       name: admin
       password: admin
   server:
-    port: 8082           
-	management:
-	  endpoints:
-	    web:
-	      exposure:
-	        include: health,info,metrics,prometheus
-	  metrics:
-	    export:
-	      prometheus:
-	        enabled: true
+    port: 8082
+  management:
+    endpoints:
+      web:
+        exposure:
+          include: health,info,metrics,prometheus
+    metrics:
+      export:
+        prometheus:
+          enabled: true

@@ -15,8 +15,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    # Si quieres etiquetar la imagen, descomenta la siguiente línea:
-    # image: gestion-productos-app:latest
+
     depends_on:
       - db
     environment:
